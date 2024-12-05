@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Mantenimiento de films</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+
+    <div>
+        <h2>Detalle de peliculas</h2>
+    </div>
+
+    <form th:object="${film}">
+
+        <div class="mb-3 row">
+            <label for="filmId" class="col-sm-2 col-form-label">Id</label>
+            <div>
+                <input type="text" readonly id="filmId"  class="form-control" th:field="*{filmId}">
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <label for="title" class="col-sm-2 col-form-label">Titulo</label>
+            <div>
+                <input type="text" readonly id="title" class="form-control" th:field="*{title}">
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <label for="language" class="col-sm-2 col-form-label">Lenguaje</label>
+            <div>
+                <input type="text" readonly id="language" class="form-control" th:field="*{language}">
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <label for="length" class="col-sm-2 col-form-label">Duracion(minutos)</label>
+            <div>
+                <input type="text" readonly id="length" class="form-control" th:field="*{length}">
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <label for="rating" class="col-sm-2 col-form-label">Rating</label>
+            <div>
+                <input type="text" readonly id="rating" class="form-control" th:field="*{rating}">
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <label for="btnInicio" class="col-sm-2 col-form-label">Rating</label>
+            <div>
+                <button type="button"  id="btnInicio" class="btn btn-secondary" onclick="location.href='/mantenimiento/consulta'" >Regresar </button>
+            </div>
+        </div>
+
+    </form>
+
+</div>
+</body>
+</html>
