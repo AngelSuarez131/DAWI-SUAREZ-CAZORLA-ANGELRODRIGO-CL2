@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pe.edu._0.DAWI_SUAREZ_CAZORLA_ANGELRODRIGO.dto.FilmDetDto;
 import pe.edu._0.DAWI_SUAREZ_CAZORLA_ANGELRODRIGO.dto.FilmDto;
+import pe.edu._0.DAWI_SUAREZ_CAZORLA_ANGELRODRIGO.dto.FilmRegDto;
 import pe.edu._0.DAWI_SUAREZ_CAZORLA_ANGELRODRIGO.service.MantService;
 
 import java.util.List;
@@ -47,12 +48,25 @@ public class MantController {
         FilmDetDto filmDetDto = mantService.findFilmById(id);
         model.addAttribute("film",filmDetDto);
         return "manten_eli";
-    }//Fin confirmacion del edit
+    }//Fin  del elim
 
     @PostMapping("/conf-elim")
-    public String elimConfirm(@ModelAttribute FilmDetDto filmDetDto, Model model){
+    public String elimConfirm(@ModelAttribute FilmDetDto filmDetDto, Model model){//Quedan mas cascades pendientes
         mantService.delFilmById(filmDetDto.filmId());
         return "redirect:/mantenimiento/consulta";
-    }//Fin confirmacion del edit
+    }//Fin confirmacion del elim
+
+    //Pendiente........
+    @RequestMapping("/add")
+    public String addFilm(Model model){
+
+        return "agregarFilm";
+    }//
+
+    @PostMapping("/agregar")
+    public String agregar(@ModelAttribute FilmRegDto filmRegDto,Model model){
+        FilmRegDto nuevoFilm = mantService.addFilm(filmRegDto);
+        return "redirect:/mantenimiento/consulta";
+    }//
 
 }

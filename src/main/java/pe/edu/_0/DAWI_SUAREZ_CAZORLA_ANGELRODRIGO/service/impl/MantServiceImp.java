@@ -4,8 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pe.edu._0.DAWI_SUAREZ_CAZORLA_ANGELRODRIGO.dto.FilmDetDto;
 import pe.edu._0.DAWI_SUAREZ_CAZORLA_ANGELRODRIGO.dto.FilmDto;
+import pe.edu._0.DAWI_SUAREZ_CAZORLA_ANGELRODRIGO.dto.FilmRegDto;
 import pe.edu._0.DAWI_SUAREZ_CAZORLA_ANGELRODRIGO.entity.Film;
+import pe.edu._0.DAWI_SUAREZ_CAZORLA_ANGELRODRIGO.entity.Language;
 import pe.edu._0.DAWI_SUAREZ_CAZORLA_ANGELRODRIGO.repository.FilmRepositoryInterface;
+import pe.edu._0.DAWI_SUAREZ_CAZORLA_ANGELRODRIGO.repository.LangRepositoryInterface;
 import pe.edu._0.DAWI_SUAREZ_CAZORLA_ANGELRODRIGO.service.MantService;
 
 import java.util.ArrayList;
@@ -17,6 +20,9 @@ public class MantServiceImp implements MantService {
 
     @Autowired
     FilmRepositoryInterface filmrepo;
+
+    @Autowired
+    LangRepositoryInterface LangRepos;
 
     @Override
     public List<FilmDto> findFilms() {
@@ -82,5 +88,39 @@ public class MantServiceImp implements MantService {
             return null;
         }
     }//Fin del delete
+
+    @Override
+    public FilmRegDto addFilm(FilmRegDto filmRegDto) {
+        Film film = new Film();
+
+        film.setTitle(filmRegDto.title());
+        film.setRentalDuration(filmRegDto.rentalDuration());
+        film.setRentalRate(filmRegDto.rentalRate());
+        film.setLength(filmRegDto.length());
+        film.setReplacementCost(filmRegDto.replacementCost());
+        film.setRating(filmRegDto.rating());
+        film.setLastUpdate(filmRegDto.lastUpdate());
+
+        Optional<Language> optional = LangRepos.findById(filmRegDto.languageId());
+        if (optional.isPresent()) {
+            film.setLanguage(optional.get());
+        } else {
+            throw new IllegalArgumentException("Id no valido ");
+        }
+
+        Film savedFilm = filmrepo.save(film);
+
+        return new FilmRegDto(
+                savedFilm.getFilmId(),
+                savedFilm.getTitle(),
+                savedFilm.getLanguage().getLanguageId(),
+                savedFilm.getRentalDuration(),
+                savedFilm.getRentalRate(),
+                savedFilm.getLength(),
+                savedFilm.getReplacementCost(),
+                savedFilm.getRating(),
+                savedFilm.getLastUpdate()
+        );
+    }
     //
 }
