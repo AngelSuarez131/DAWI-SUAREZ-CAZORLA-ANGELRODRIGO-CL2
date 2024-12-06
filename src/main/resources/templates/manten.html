@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"><!--Por alguna razon el thymelaf no funciona sin esto a pesar de estar en el pom-->
 <head>
     <meta charset="UTF-8">
     <title>Mantenimiento de films</title>
@@ -8,21 +8,21 @@
 </head>
 <body>
 <div class="container">
-    <div><h3 >Peliculas</h3></div>
+    <div><h2>欢迎</h2></div>
 
 
 
-    <table class="table table-striped-columns">
+    <table class="table table-striped-columns table-borderless">
 
         <tr>
             <th>Id</th>
             <th>Titulo</th>
             <th>Idioma</th>
-            <th>Tiempo de alquiler(dias)</th>
-            <th>Precio de alquiler</th>
-            <th>Longitud(minutos)</th>
+            <th>Tiempo de alquiler (dias)</th>
+            <th>Precio de alquiler (Soles)</th>
+            <th>Longitud (minutos)</th>
             <th>Rating</th>
-            <th colspan="3">Mantener</th>
+            <th colspan="3">Mantenimiento</th>
 
         </tr>
         <!--Iteracion en table row-->
@@ -42,10 +42,13 @@
                 </a>
             </td>
             <td>
-                <a href="">Editar</a>
+                <a th:href="@{/mantenimiento/edit/{id}(id=${film.filmId()})}" class="btn btn-success btn-sm">
+                    Editar
+                </a>
             </td>
             <td>
-                <a href="">Eliminar</a>
+                <a th:href="@{/mantenimiento/elim/{id}(id=${film.filmId()})}" class="btn btn-danger btn-sm">
+                    Eliminar</a>
             </td>
         </tr>
     </table>

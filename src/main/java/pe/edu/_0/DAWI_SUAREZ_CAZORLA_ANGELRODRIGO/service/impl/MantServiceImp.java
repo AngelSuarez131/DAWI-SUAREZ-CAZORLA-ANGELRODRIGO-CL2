@@ -48,5 +48,39 @@ public class MantServiceImp implements MantService {
             ).orElse(null);
 
     }//Fin del findfbyid
+
+    @Override
+    public Boolean ActualizarFilm(FilmDetDto filmDetDto) {
+        Optional<Film> optional = filmrepo.findById(filmDetDto.filmId());
+
+        return optional.map(//Tdo menos language
+                f -> {
+                    f.setTitle(filmDetDto.title());
+                    f.setLength(filmDetDto.length());
+                    f.setRating(filmDetDto.rating());
+                    filmrepo.save(f);
+                    return true;
+                }
+
+        ).orElse((false));
+    }//Fin del actualizar
+
+    @Override
+    public FilmDetDto delFilmById(int id) {
+        Optional<Film> optional = filmrepo.findById(id);
+
+        if (optional.isPresent()) {
+            filmrepo.deleteById(id);
+            return new FilmDetDto(
+                    optional.get().getFilmId(),
+                    optional.get().getTitle(),
+                    optional.get().getLanguage().getName(),
+                    optional.get().getLength(),
+                    optional.get().getRating()
+            );
+        } else {
+            return null;
+        }
+    }//Fin del delete
     //
 }

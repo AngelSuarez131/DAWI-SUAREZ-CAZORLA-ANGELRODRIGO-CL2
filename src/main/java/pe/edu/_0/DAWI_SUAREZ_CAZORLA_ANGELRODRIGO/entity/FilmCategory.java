@@ -14,18 +14,20 @@ import java.util.List;
 @AllArgsConstructor
 public class FilmCategory {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EmbeddedId
+    private FilmCategoryId id;
     //private Integer filmId;
     //private Integer categoryId;
     private Date lastUpdate;
 
     @ManyToOne
-    @JoinColumn(name = "category_id")
+    @MapsId("categoryId")
+    @JoinColumn(name = "category_id",nullable = false)
     private Category category;
 
     @OneToOne
-    @JoinColumn(name = "film_id")
+    @MapsId("filmId")
+    @JoinColumn(name = "film_id",nullable = false)
     public Film film;
 
 

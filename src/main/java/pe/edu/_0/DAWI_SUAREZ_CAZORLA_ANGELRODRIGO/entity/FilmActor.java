@@ -13,17 +13,20 @@ import java.util.Date;
 @AllArgsConstructor
 public class FilmActor {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EmbeddedId
+    private FilmActorId id;
+
     //private Integer actorId;
   //  private Integer filmId;
     private Date lastUpdate;
 
     @ManyToOne
+    @MapsId("filmId")
     @JoinColumn(name = "film_id",nullable = false)
     private Film film;
 
     @ManyToOne
+    @MapsId("actorId")
     @JoinColumn(name = "actor_id")
     private Actor actor;
 
